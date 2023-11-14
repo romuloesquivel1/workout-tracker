@@ -126,6 +126,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useRoute, useRouter } from 'vue-router';
 import { uid } from 'uid';
 import store from '../store/index';
+import { WORKOUTS } from '../lib/constants';
 
 // Create data / vars
 const data = ref(null);
@@ -143,7 +144,7 @@ const currentId = route.params.workoutId;
 // Get workout data
 const getData = async () => {
   try {
-    const { data: workouts, error } = await supabase.from('workouts').select('*').eq('id', currentId);
+    const { data: workouts, error } = await supabase.from(WORKOUTS).select('*').eq('id', currentId);
     if(error) throw error;
     data.value = workouts[0];
     pageLoading.value = false;
@@ -161,7 +162,7 @@ getData();
 // Delete workout
 const deleteWorkout = async () => {
   try {
-    const { error } = await supabase.from('workouts').delete().eq('id', currentId);
+    const { error } = await supabase.from(WORKOUTS).delete().eq('id', currentId);
     if(error) throw error;
     router.push({ name: 'home' });
   }
@@ -218,7 +219,7 @@ const deleteExercise = (id) => {
 const updateWorkout = async () => {
   submitButtonLoading.value = true;
   try {
-    const { error } = await supabase.from('workouts').update({
+    const { error } = await supabase.from(WORKOUTS).update({
       workoutName: data.value.workoutName,
       exercises: data.value.exercises,
     }).eq('id', currentId);

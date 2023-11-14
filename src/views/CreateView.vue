@@ -111,6 +111,7 @@ import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import { supabase } from '../lib/supabaseClient';
 import { ref } from 'vue';
 import { uid } from 'uid';
+import { WORKOUTS } from '../lib/constants';
 
 // Create data
 const workoutName = ref('');
@@ -164,7 +165,7 @@ const workoutChange = () => {
 const createWorkout = async () => {
   loading.value = true;
   try {
-    const { error } = await supabase.from('workouts').insert([
+    const { error } = await supabase.from(WORKOUTS).insert([
       {
         workoutName: workoutName.value,
         workoutType: workoutType.value,

@@ -7,6 +7,8 @@ import store from './store/index';
 // Runs when there is a auth state change
 // if user is logged in, this will fire
 supabase.auth.onAuthStateChange((_,session) => {
+  console.log('_', _);
+  console.log('session', session);
   store.methods.setUser(session);
 });
 </script>

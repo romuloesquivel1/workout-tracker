@@ -9,9 +9,135 @@
     <template v-else>
       <!-- No Data -->
       <div v-if="data.length === 0" class="w-full flex flex-col items-center py-32">
-        <h1 class="text-2xl mb-4 text-gray-800">Looks empty here...</h1>
+        <div class="container mx-auto px-6">
+          <h2 class="text-4xl font-bold mb-2 text-black text-center">
+            Welcome to Our Website
+          </h2>
+          <h3 class="text-2xl mb-8 text-grey-dark text-center">
+            We provide high quality services
+          </h3>
+        </div>
+
+        <!-- Features Section -->
+        <section class="container mx-auto px-6 p-10">
+          <!-- Features -->
+          <div class="flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-2 lg:-mx-2 xl:-mx-2">
+            <!-- Column 1 -->
+            <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-2 xl:px-2 xl:w-1/2">
+              <!-- Your first three divs here -->
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-2 xl:px-2 xl:w-1/2">
+              <!-- Your last three divs here -->
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- You can replace with your own svg icon -->
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path fill-rule="evenodd" d="M12.03 12.97a7 7 0 01-8.14-1.54 1 1 0 011.28-1.538 5 5 0 006.56 1.176 1 1 0 111.01 1.74 7 7 0 01-.71.17z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Feature Title
+                  </p>
+                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Feature Description
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <BaseButton>
-          <RouterLink :to="{ name: 'create' }">Create Workout</RouterLink>
+          <RouterLink :to="{ name: 'create' }">Get Started: Create Workout</RouterLink>
         </BaseButton>
       </div>
   
@@ -50,28 +176,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { supabase } from '../lib/supabaseClient';
+
+import { data, loading, getData } from './HomeViewScript.js';
 import IconDumbbell from '../components/icons/IconDumbbell.vue';
 import IconRun from '../components/icons/IconRun.vue';
 import BaseButton from '../components/BaseButton.vue';
 
-// Create data / vars
-const data = ref([]);
-const loading = ref(true);
-
-// Get data
-const getData = async () => {
-  try {
-    const { data: workouts, error } = await supabase.from('workouts').select();
-    if (error) throw error;
-    loading.value = false;
-    data.value = workouts;
-  } catch (error) {
-    console.warn(error.message);
-  }
-};
-
-// Run data function
 getData();
+
 </script>
