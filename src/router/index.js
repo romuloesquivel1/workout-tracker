@@ -5,7 +5,7 @@ import RegisterView from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
 import CreateView from '../views/CreateView.vue';
 import SingleView from '../views/SingleView.vue';
-
+import LandingView from '../views/LandingView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: LandingView,
       meta: {
         title: "Home",
         auth: false,

@@ -1,6 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router';
 import TheNavigation from './components/TheNavigation.vue';
+import Footer from './components/Footer.vue';
 import { supabase } from './lib/supabaseClient';
 import store from './store/index';
 
@@ -16,4 +17,5 @@ supabase.auth.onAuthStateChange((_,session) => {
 <template>
   <TheNavigation></TheNavigation>
   <RouterView />
+  <Footer />
 </template>
