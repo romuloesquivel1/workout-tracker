@@ -6,6 +6,8 @@ import LoginView from '../views/LoginView.vue';
 import CreateView from '../views/CreateView.vue';
 import SingleView from '../views/SingleView.vue';
 import LandingView from '../views/LandingView.vue';
+import NotFoundView from '../views/NotFoundView.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,17 +57,24 @@ const router = createRouter({
         auth: false,
       },
     },
+    // not found route
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView,
+      meta: {
+        title: "Not Found",
+        auth: false,
+      },
+    },
   ]
 });
 
-// Change document titles
 router.beforeEach((to, from, next) => {
+  // Change document titles
   document.title = `${to.meta.title} | Workout Tracker`;
-  next();
-});
 
-// Route guard for auth routes
-router.beforeEach((to, from, next) => {
+  // Route guard for auth routes
   const user = store.state.currentUser;
   if (to.matched.some((res) => res.meta.auth)) {
     if (user) {

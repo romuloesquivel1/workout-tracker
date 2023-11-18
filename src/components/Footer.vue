@@ -1,6 +1,6 @@
 <template>
 
-  <footer class="bg-c-green text-white p-4" :class="footerClass">
+  <footer class="bg-c-green text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
       <div>
         <a href="#" class="text-2xl font-bold">Learn Vue v3</a>
@@ -15,22 +15,3 @@
   </footer>
 
 </template>
-
-<script setup>
-import { ref, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
-const route = useRoute()
-
-const footerNeedToApplyCssClassForRoutes = ['login', 'register', 'create'];
-
-const footerClass = ref('')
-
-watchEffect(() => {
-  if (footerNeedToApplyCssClassForRoutes.includes(route.name)) {
-    footerClass.value = 'fixed bottom-0 left-0 w-full'
-  } else {
-    footerClass.value = ''
-  }
-});
-
-</script>

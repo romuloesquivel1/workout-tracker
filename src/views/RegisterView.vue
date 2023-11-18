@@ -1,12 +1,12 @@
 <template>
-  <div class="max-w-screen-sm mx-auto py-10 px-4">
+  <div id='main' class="mx-8 sm:mx-0 py-10 items-center flex">
     <BaseAlert v-if="errorMsg" messageType="danger" class="mb-10">
       {{ errorMsg }}
     </BaseAlert>
     <BaseAlert v-if="successMsg" messageType="success" class="mb-10">
       {{ successMsg }}
     </BaseAlert>
-    <div class="p-8 flex flex-col bg-c-light-green bg-opacity-10 rounded-md">
+    <div class="p-8 flex flex-col w-full sm:w-3/4 mx-auto lg:w-1/2 bg-c-light-green bg-opacity-10 rounded">
       <form @submit.prevent="register">
         <h1 class="text-3xl text-gray-800 mb-4">Register</h1>
         <div class="flex flex-col mb-3">
@@ -52,8 +52,9 @@
 
 <script setup>
 import { supabase } from './../lib/supabaseClient';
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import BaseButton from '../components/BaseButton.vue';
+import { setMainDivHeight } from "../lib/helpers";
 
 // Create data / vars
 const email = ref(null);
@@ -93,4 +94,9 @@ const register = async () => {
     errorMsg.value = null;
   }, 5000);
 };
+
+onMounted(() => {
+  setMainDivHeight();
+});
+
 </script>

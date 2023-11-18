@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-screen-sm mx-auto py-10 px-4">
+  <div id='main' class="mx-8 sm:mx-0 py-10 items-center flex">
     <BaseAlert v-if="errorMsg" messageType="danger" class="mb-10">
       {{ errorMsg }}
     </BaseAlert>
-    <div class="p-8 flex flex-col bg-c-light-green bg-opacity-10 rounded-md">
+    <div class="p-8 flex flex-col w-full sm:w-3/4 mx-auto lg:w-1/2 bg-c-light-green bg-opacity-10 rounded">
       <form @submit.prevent="login">
         <h1 class="text-3xl text-gray-800 mb-4">Login</h1>
         <div class="flex flex-col mb-3">
@@ -40,7 +40,8 @@
 <script setup>
 import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { setMainDivHeight } from "../lib/helpers";
 
 // Create data / vars
 const router = useRouter();
@@ -68,4 +69,8 @@ const login = async () => {
     }, 5000);
   }
 };
+
+onMounted(() => {
+  setMainDivHeight();
+});
 </script>
