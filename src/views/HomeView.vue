@@ -155,18 +155,18 @@
   
           <!-- Cardio Icon -->
     
-          <IconRun v-if="workout.workoutType === 'cardio'" class="w-24 h-24 text-c-green"></IconRun>
+          <IconRun v-if="workout.type === 'cardio'" class="w-24 h-24 text-c-green"></IconRun>
   
           <!-- Strength Training Icon -->
   
           <IconDumbbell v-else class="w-24 h-24 text-c-green"></IconDumbbell>
   
           <p class="mt-6 py-1 px-3 font-medium text-xs text-white bg-c-green rounded-lg">
-            {{ workout.workoutType }}
+            {{ workout.type }}
           </p>
   
           <h3 class="mt-8 mb-2 text-center text-xl text-gray-800">
-            {{ workout.workoutName }}
+            {{ workout.name }}
           </h3>
         </article>
       </div>

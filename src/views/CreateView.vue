@@ -13,19 +13,19 @@
 
         <div class="flex flex-col w-full">
           <label for="workout-name" class="mb-1 text-sm text-gray-800">Workout Name</label>
-          <input type="text" required class="p-2 text-gray-500 focus:outline-none" id="workout-name" v-model="workoutName">
+          <input type="text" required class="p-2 text-gray-500 focus:outline-none" id="workout-name" v-model="name">
         </div>
 
         <div class="flex flex-col w-full">
           <label for="workout-type" class="mb-1 text-sm text-gray-800">Workout Type</label>
-          <select id="workout-type" required class="h-11 p-2 text-gray-500 bg-white focus:outline-none" v-model="workoutType" @change="workoutChange">
+          <select id="workout-type" required class="h-11 p-2 text-gray-500 bg-white focus:outline-none" v-model="type" @change="workoutChange">
             <option value="select-workout">Select Workout</option>
             <option value="strength">Strength Training</option>
             <option value="cardio">Cardio</option>
           </select>
         </div>
 
-        <div v-if="workoutType === 'strength'" class="flex flex-col items-start gap-y-4">
+        <div v-if="type === 'strength'" class="flex flex-col items-start gap-y-4">
           <div 
             class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row pr-8"
             v-for="(item, index) in exercises"
@@ -60,7 +60,7 @@
           </div>
         </div>
 
-        <div v-if="workoutType === 'cardio'" class="flex flex-col items-start gap-y-4">
+        <div v-if="type === 'cardio'" class="flex flex-col items-start gap-y-4">
           <div 
             class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row pr-8"
             v-for="(item, index) in exercises"
@@ -111,11 +111,11 @@ import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import { supabase } from '../lib/supabaseClient';
 import { ref } from 'vue';
 import { uid } from 'uid';
-import { WORKOUTS } from '../lib/constants';
+import { WORKOUTS_TABLE_NAME } from '../lib/constants';
 
 // Create data
-const workoutName = ref('');
-const workoutType = ref('select-workout');
+const name = ref('');
+const type = ref('select-workout');
 const exercises = ref([]);
 const successMsg = ref(null);
 const errorMsg = ref(null);
@@ -123,7 +123,7 @@ const loading = ref(false);
 
 // Add exercise
 const addExercise = () => {
-  if(workoutType.value === 'strength') {
+  if(type.value === 'strength') {
     exercises.value.push({
       id: uid(),
       exercise: '',
@@ -165,18 +165,18 @@ const workoutChange = () => {
 const createWorkout = async () => {
   loading.value = true;
   try {
-    const { error } = await supabase.from(WORKOUTS).insert([
+    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).insert([
       {
-        workoutName: workoutName.value,
-        workoutType: workoutType.value,
+        name: name.value,
+        type: type.value,
         exercises: exercises.value,
       },
     ]);
     if(error) throw error;
     loading.value = false;
     successMsg.value = 'Success, Workout Created!';
-    workoutName.value = null;
-    workoutType.value = 'select-workout';
+    name.value = null;
+    type.value = 'select-workout';
     exercises.value = [];
     setTimeout(() => {
       successMsg.value = null;

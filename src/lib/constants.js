@@ -1,3 +1,4 @@
-const WORKOUTS = 'Workouts';
+const WORKOUTS_TABLE_NAME = 'Workouts';
+const EXERCISES_TABLE_NAME = 'Exercises';
 
-export { WORKOUTS };
+export { WORKOUTS_TABLE_NAME, EXERCISES_TABLE_NAME, };

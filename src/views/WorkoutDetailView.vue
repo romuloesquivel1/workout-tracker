@@ -28,21 +28,21 @@
           </div>
         </div>
 
-        <IconRun v-if="data.workoutType === 'cardio'" class="w-24 h-24 text-c-green"></IconRun>
+        <IconRun v-if="data.type === 'cardio'" class="w-24 h-24 text-c-green"></IconRun>
         <IconDumbbell v-else class="w-24 h-24 text-c-green"></IconDumbbell>
 
         <span class="mt-6 py-1 px-3 text-xs text-white bg-c-green rounded-lg">
-          {{ data.workoutType }}
+          {{ data.type }}
         </span>
 
         <div class="w-full mt-6">
-          <input v-if="edit" type="text" class="p-2 w-full text-gray-500 focus:outline-none" v-model="data.workoutName">
-          <h1 v-else class="text-center text-2xl text-gray-800 m-0">{{ data.workoutName }}</h1>
+          <input v-if="edit" type="text" class="p-2 w-full text-gray-500 focus:outline-none" v-model="data.name">
+          <h1 v-else class="text-center text-2xl text-gray-800 m-0">{{ data.name }}</h1>
         </div>
       </div>
 
       <div class="mt-10 p-8 flex flex-col items-start bg-c-light-green bg-opacity-10 rounded-md">
-        <div v-if="data.workoutType === 'strength'" class="flex flex-col gap-y-4 w-full">
+        <div v-if="data.type === 'strength'" class="flex flex-col gap-y-4 w-full">
           <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row relative pr-8" v-for="(item, index) in data.exercises" :key="index">
             <div class="flex flex-2 flex-col md:w-1/3">
               <label class="mb-1 text-sm text-gray-800">Exercise</label>
@@ -76,12 +76,12 @@
           <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row relative pr-8" v-for="(item, index) in data.exercises" :key="index">
             <div class="flex flex-2 flex-col md:w-1/3">
               <label class="mb-1 text-sm text-gray-800">Type</label>
-              <select v-if="edit" Class="p-2 w-full bg-white text-gray-500 focus:outline-none" v-model="item.cardioType">
+              <select v-if="edit" Class="p-2 w-full bg-white text-gray-500 focus:outline-none" v-model="item.cardio_type">
                 <option value="#">Select Type</option>
                 <option value="run">Run</option>
                 <option value="walk">Walk</option>
               </select>
-              <p class="text-gray-800" v-else>{{ item.cardioType }}</p>
+              <p class="text-gray-800" v-else>{{ item.cardio_type }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Distance (km)</label>
@@ -124,9 +124,8 @@ import BaseButton from '../components/BaseButton.vue';
 import { ref, computed } from 'vue';
 import { supabase } from '../lib/supabaseClient';
 import { useRoute, useRouter } from 'vue-router';
-import { uid } from 'uid';
 import store from '../store/index';
-import { WORKOUTS } from '../lib/constants';
+import { WORKOUTS_TABLE_NAME } from '../lib/constants';
 
 // Create data / vars
 const data = ref(null);
@@ -144,7 +143,7 @@ const currentId = route.params.workoutId;
 // Get workout data
 const getData = async () => {
   try {
-    const { data: workouts, error } = await supabase.from(WORKOUTS).select('*').eq('id', currentId);
+    const { data: workouts, error } = await supabase.from(WORKOUTS_TABLE_NAME).select('*, exercises:Exercises(*)').eq('id', currentId);
     if(error) throw error;
     data.value = workouts[0];
     pageLoading.value = false;
@@ -162,7 +161,7 @@ getData();
 // Delete workout
 const deleteWorkout = async () => {
   try {
-    const { error } = await supabase.from(WORKOUTS).delete().eq('id', currentId);
+    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).delete().eq('id', currentId);
     if(error) throw error;
     router.push({ name: 'home' });
   }
@@ -183,10 +182,9 @@ const editMode = () => {
 
 // Add exercise
 const addExercise = () => {
-  if(data.value.workoutType === 'strength') {
+  if(data.value.type === 'strength') {
     data.value.exercises.push({
-      id: uid(),
-      exercise: '',
+      name: '',
       sets: '',
       reps: '',
       weight: '',
@@ -195,8 +193,8 @@ const addExercise = () => {
   }
 
   data.value.exercises.push({
-    id: uid(),
-    cardioType: '',
+    name: '',
+    cardio_type: '',
     distance: '',
     duration: '',
     pace: '',
@@ -219,8 +217,8 @@ const deleteExercise = (id) => {
 const updateWorkout = async () => {
   submitButtonLoading.value = true;
   try {
-    const { error } = await supabase.from(WORKOUTS).update({
-      workoutName: data.value.workoutName,
+    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).update({
+      name: data.value.name,
       exercises: data.value.exercises,
     }).eq('id', currentId);
     if(error) throw error;

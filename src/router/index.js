@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
 import CreateView from '../views/CreateView.vue';
-import SingleView from '../views/SingleView.vue';
+import WorkoutDetailView from '../views/WorkoutDetailView.vue';
 import LandingView from '../views/LandingView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
@@ -52,9 +52,9 @@ const router = createRouter({
     {
       path: "/workout/:workoutId",
       name: "workout",
-      component: SingleView,
+      component: WorkoutDetailView,
       meta: {
-        title: "Workout",
+        title: "Workout Detail",
         auth: false,
       },
     },
