@@ -7,10 +7,11 @@
           <h1 class="text-lg"><router-link class="" :to="{ name: 'home' }">Workout Tracker</router-link></h1>
         </div>
         <ul class="flex gap-x-5">
-          <router-link class="" :to="{ name: 'home' }">Home</router-link>
-          <router-link v-if="user" class="" :to="{ name: 'create' }">Create</router-link>
-          <router-link v-if="!user" class="" :to="{ name: 'login' }">Login</router-link>
-          <li v-if="user" class="" @click="logout">Logout</li>
+          <li><router-link class="" :to="{ name: 'home' }">Home</router-link></li>
+          <li v-if="!user"><router-link class="" :to="{ name: 'login' }">Login</router-link></li>
+          <li v-if="user"><router-link class="" :to="{ name: 'create' }">Create</router-link></li>
+          <li v-if="user"><router-link class="" :to="{ name: 'profile' }">Profile</router-link></li>
+          <li v-if="user" class="cursor-pointer" @click="logout">Logout</li>
         </ul>
       </nav>
     </div>
@@ -25,7 +26,7 @@ import store from '../store/index';
 import { computed } from 'vue';
 
 // Get user from store
-const user = computed(() => { return store.state.currentUser });
+const user = computed(() => { return store.state.currentUser; });
 
 // Setup ref to router
 const router = useRouter();

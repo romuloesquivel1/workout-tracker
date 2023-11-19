@@ -7,7 +7,8 @@ import CreateView from '../views/CreateView.vue';
 import SingleView from '../views/SingleView.vue';
 import LandingView from '../views/LandingView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
-
+import ProfileView from '../views/ProfileView.vue';
+import EditProfileView from '../views/EditProfileView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +56,24 @@ const router = createRouter({
       meta: {
         title: "Workout",
         auth: false,
+      },
+    },
+    {
+      path: '/edit-profile',
+      name: 'edit-profile',
+      component: EditProfileView,
+      meta: {
+        title: "Edit Profile",
+        auth: true, // assuming that only authenticated users can access this page
+      },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      meta: {
+        title: "Profile",
+        auth: true, // assuming that only authenticated users can access this page
       },
     },
     // not found route
