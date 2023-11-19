@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store/index';
-import HomeView from '../views/HomeView.vue';
+import WorkoutIndexView from '../views/WorkoutIndexView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
 import CreateView from '../views/CreateView.vue';
@@ -9,6 +9,7 @@ import LandingView from '../views/LandingView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import EditProfileView from '../views/EditProfileView.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,15 @@ const router = createRouter({
       component: CreateView,
       meta: {
         title: "Create",
+        auth: true,
+      },
+    },
+    {
+      path: "/workouts",
+      name: "workouts",
+      component: WorkoutIndexView,
+      meta: {
+        title: "Workout Index",
         auth: true,
       },
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10 px-4">
+  <div class="container py-10 px-4" id="main">
     <template v-if="loading">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <div v-for="n in 8" :key="n" class="h-[276px] bg-gray-100 animate-pulse"></div>
@@ -8,7 +8,7 @@
 
     <template v-else>
       <!-- No Data -->
-      <div v-if="data.length === 0" class="w-full flex flex-col items-center py-32">
+      <div v-if="workouts.length === 0" class="w-full flex flex-col items-center py-32">
         <div class="container mx-auto px-6">
           <h2 class="text-4xl font-bold mb-2 text-black text-center">
             Welcome to Our Website
@@ -136,16 +136,15 @@
           </div>
         </section>
 
-        <BaseButton>
-          <RouterLink :to="{ name: 'create' }">Get Started: Create Workout</RouterLink>
-        </BaseButton>
+        <RouterLink :to="{ name: 'create' }"><BaseButton>Get Started: Create Workout</BaseButton></RouterLink>
+        
       </div>
   
       <!-- Data -->
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <article 
           class="flex flex-col items-center bg-c-light-green bg-opacity-10 p-8 cursor-pointer relative"
-          v-for="(workout, index) in data"
+          v-for="(workout, index) in workouts"
           :key="index" 
         >
           <router-link
@@ -177,11 +176,16 @@
 
 <script setup>
 
-import { data, loading, getData } from './HomeViewScript.js';
+import { data as workouts, loading, getData } from './WorkoutIndexView.js';
 import IconDumbbell from '../components/icons/IconDumbbell.vue';
 import IconRun from '../components/icons/IconRun.vue';
 import BaseButton from '../components/BaseButton.vue';
+import { setMainDivHeight } from '../lib/helpers';
+import { onMounted } from 'vue';
 
-getData();
+onMounted(() => {
+  setMainDivHeight();
+  getData().then(setMainDivHeight);
+});
 
 </script>

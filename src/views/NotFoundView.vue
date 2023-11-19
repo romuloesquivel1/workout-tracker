@@ -10,11 +10,9 @@
             Sorry about that! Please visit our hompage to get where you need to go.
           </p>
           <div class="mt-2">
-            <button
-              class="border sm:w-auto w-full rounded text-center py-4 px-8 bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
-            >
-              Take me there!
-            </button>
+            <RouterLink class="mt-3 block" :to="{ name: 'home' }">
+              <BaseButton>Take me there!</BaseButton>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -31,6 +29,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { setMainDivHeight } from '../lib/helpers';
+import BaseButton from '../components/BaseButton.vue';
 
 const spaceClass = ref('md:py-10 md:px-14 lg:px-10 px-4 py-14 md:gap-18 lg:gap-14 xl:gap-32 gap-20')
 const mainClass = ref('items-center flex justify-center flex-col-reverse md:flex-row')

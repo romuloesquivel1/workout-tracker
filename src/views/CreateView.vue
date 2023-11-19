@@ -8,7 +8,7 @@
     </BaseAlert>
 
     <div class="p-8 flex items-start bg-c-light-green bg-opacity-10 rounded-md">
-      <form @submit.prevent="createWorkout" class="flex flex-col items-start gap-y-5 w-full">
+      <form @submit.prevent="createData" class="flex flex-col items-start gap-y-5 w-full">
         <h1 class="text-2xl text-gray-800">Recode Workout</h1>
 
         <div class="flex flex-col w-full">
@@ -68,7 +68,7 @@
           >
             <div class="flex flex-col md:w-1/3">
               <label for="cardio-type" class="mb-1 text-sm text-gray-800">Type</label>
-              <select id="cardio-type" class="h-10 p-2 w-full text-gray-500 bg-white focus:outline-none" v-model="item.cardioType">
+              <select id="cardio-type" class="h-10 p-2 w-full text-gray-500 bg-white focus:outline-none" v-model="item.cardio_type">
                 <option value="#">Select Type</option>
                 <option value="run">Run</option>
                 <option value="walk">Walk</option>
@@ -109,9 +109,10 @@ import BaseButton from '../components/BaseButton.vue';
 import IconBin from '../components/icons/IconBin.vue';
 import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import { supabase } from '../lib/supabaseClient';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { uid } from 'uid';
-import { WORKOUTS_TABLE_NAME } from '../lib/constants';
+import { EXERCISES_TABLE_NAME, WORKOUTS_TABLE_NAME } from '../lib/constants';
+import store from '../store';
 
 // Create data
 const name = ref('');
@@ -120,6 +121,8 @@ const exercises = ref([]);
 const successMsg = ref(null);
 const errorMsg = ref(null);
 const loading = ref(false);
+const user = computed(() => store.state.currentUser);
+const workout = ref(null);
 
 // Add exercise
 const addExercise = () => {
@@ -136,7 +139,7 @@ const addExercise = () => {
 
   exercises.value.push({
     id: uid(),
-    cardioType: '',
+    cardio_type: '',
     distance: '',
     duration: '',
     pace: '',
@@ -161,18 +164,77 @@ const workoutChange = () => {
   addExercise();
 }
 
-// Create workout
+// Create Workout
 const createWorkout = async () => {
   loading.value = true;
   try {
-    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).insert([
+    const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert([
       {
         name: name.value,
         type: type.value,
-        exercises: exercises.value,
+        user_id: user.value.id,
       },
-    ]);
-    if(error) throw error;
+    ]).select();
+
+    if (error) {
+      errorMsg.value = error.message;
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+      loading.value = false;
+      return false;
+    } else {
+      workout.value = data[0];
+    }
+
+    loading.value = false;
+    successMsg.value = 'Success, Workout Created!';
+    name.value = null;
+    type.value = 'select-workout';
+    exercises.value = [];
+    setTimeout(() => {
+      successMsg.value = null;
+    }, 5000);
+
+    return true;
+  }
+  catch(error) {
+    errorMsg.value = error.messageg;
+    setTimeout(() => {
+      errorMsg.value = null;
+    }, 5000);
+
+    return false;
+  }
+}
+
+// Create Exercises
+const createExercises = async () => {
+  try {
+    const exercisesArr = exercises.value.map(exercise => {
+      return {
+        workout_id: workout.value.id,
+        exercise: exercise.exercise,
+        sets: exercise.sets,
+        reps: exercise.reps,
+        weight: exercise.weight,
+        cardio_type: exercise.cardio_type,
+        distance: exercise.distance,
+        duration: exercise.duration,
+        pace: exercise.pace,
+      }
+    })
+    const { error } = await supabase.from(EXERCISES_TABLE_NAME).insert(exercisesArr);
+
+    if (error) {
+      errorMsg.value = error.message;
+      setTimeout(() => {
+        errorMsg.value = null;
+      }, 5000);
+      loading.value = false;
+      return;
+    }
+
     loading.value = false;
     successMsg.value = 'Success, Workout Created!';
     name.value = null;
@@ -188,5 +250,11 @@ const createWorkout = async () => {
       errorMsg.value = null;
     }, 5000);
   }
+}
+
+// save the workout then save the exercises
+const createData = async () => {
+ if (await createWorkout())
+    await createExercises();
 }
 </script>

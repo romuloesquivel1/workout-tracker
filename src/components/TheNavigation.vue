@@ -11,6 +11,7 @@
           <li v-if="!user"><router-link class="" :to="{ name: 'login' }">Login</router-link></li>
           <li v-if="user"><router-link class="" :to="{ name: 'create' }">Create</router-link></li>
           <li v-if="user"><router-link class="" :to="{ name: 'profile' }">Profile</router-link></li>
+          <li v-if="user"><router-link class="" :to="{ name: 'workouts' }">Workouts</router-link></li>
           <li v-if="user" class="cursor-pointer" @click="logout">Logout</li>
         </ul>
       </nav>

@@ -11,3 +11,19 @@
 body {
   @apply min-h-screen leading-relaxed font-Poppins;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.confirm-delete-modal {
+  .min-w-sm {
+    min-width: 400px;
+  }
+}
