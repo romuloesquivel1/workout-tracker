@@ -1,4 +1,5 @@
 <template>
+
   <div 
     class="p-4 rounded-md flex items-center text-gray-800" 
     :class="{'bg-red-100': messageType === 'danger', 'bg-green-100': messageType === 'success'}"
@@ -9,11 +10,14 @@
     </i>
     <slot></slot>
   </div>
+
 </template>
 
 <script setup>
+
 import IconDanger from './icons/IconDanger.vue';
 import IconSuccess from './icons/IconSuccess.vue';
 
 defineProps(['messageType']);
+
 </script>

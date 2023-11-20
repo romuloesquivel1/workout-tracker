@@ -96,7 +96,8 @@ const router = createRouter({
         auth: false,
       },
     },
-  ]
+  ],
+  linkExactActiveClass: 'text-orange-500',
 });
 
 router.beforeEach((to, from, next) => {

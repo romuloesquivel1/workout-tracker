@@ -1,4 +1,5 @@
 <template>
+
   <div id='main' class="mx-8 sm:mx-0 py-10 items-center flex">
     <BaseAlert v-if="errorMsg" messageType="danger" class="mb-10">
       {{ errorMsg }}
@@ -48,9 +49,11 @@
       </form>
     </div>
   </div>
+
 </template>
 
 <script setup>
+
 import { supabase } from './../lib/supabaseClient';
 import { onMounted, ref } from "vue";
 import BaseButton from '../components/BaseButton.vue';

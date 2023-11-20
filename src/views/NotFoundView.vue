@@ -1,4 +1,5 @@
 <template>
+
   <div id='main' :class="`${mainClass} ${spaceClass}`">
     <div class="lg:w-1/2 w-full relative lg:pb-0">
       <div class="absolute">
@@ -24,9 +25,11 @@
       <img src="https://i.ibb.co/ck1SGFJ/Group.png" />
     </div>
   </div>
+
 </template>
 
 <script setup>
+
 import { onMounted, ref } from 'vue'
 import { setMainDivHeight } from '../lib/helpers';
 import BaseButton from '../components/BaseButton.vue';
@@ -36,4 +39,5 @@ const mainClass = ref('items-center flex justify-center flex-col-reverse md:flex
 onMounted(() => {
   setMainDivHeight();
 });
+
 </script>

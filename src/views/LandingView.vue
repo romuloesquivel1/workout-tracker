@@ -1,4 +1,5 @@
 <template>
+
   <section class="bg-white dark:bg-gray-300">
     <div class="container mx-auto px-4 py-8 text-center">
       <h1 class="text-4xl font-bold mb-4">Your journey starts here.</h1>
@@ -160,7 +161,3 @@
   </div>
 
 </template>
-
-<script>
-export default {}
-</script>

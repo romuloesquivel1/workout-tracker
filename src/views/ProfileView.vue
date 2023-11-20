@@ -1,4 +1,5 @@
 <template>
+
   <div class="container mx-auto px-4 sm:px-8">
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
@@ -47,25 +48,13 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
-const user_json = 
-{
-    "avatar": "Avery.Johnson.jpg",
-    "bio": "I have a wide range of experience working with women of all ages and fitness levels. I am a certified personal trainer, group fitness instructor, and nutrition coach. I also have a background in sports psychology, which I use to help my clients overcome mental barriers and achieve their goals.",
-    "country": "England",
-    "firstName": "Avery",
-    "followCount": 130,
-    "lastName": "Johnson",
-    "profession": "Doctor",
-    phone: '',
-    email: ''
-}
 
 import { computed } from 'vue';
 import store from '../store/index';
 const user = computed(() => { return store.state.currentUser; });
 
 </script>
-```

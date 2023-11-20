@@ -1,4 +1,5 @@
 <template>
+
   <transition name="fade">
     <div v-if="modelValue == true" class="confirm-delete-modal">
       <div
@@ -51,10 +52,10 @@
       </div>
     </div>
   </transition>
+
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   modelValue: Boolean,
@@ -88,4 +89,5 @@ const closeModal = () => {
 
 // emit confirm event
 const onConfirm = props.onConfirm || closeModal;
+
 </script>

@@ -1,5 +1,6 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-8">
+
+<div class="container mx-auto px-4 sm:px-8">
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
         <h2 class="text-2xl leading-tight">Edit Your Profile</h2>
@@ -56,6 +57,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>

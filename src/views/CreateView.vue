@@ -33,7 +33,7 @@
           >
             <div class="flex flex-col md:w-1/3">
               <label for="strength-exercise" class="mb-1 text-sm text-gray-800">Exercise</label>
-              <input id="strength-exercise" type="text" required class="p-2 text-gray-500 focus:outline-none w-full" v-model="item.exercise">
+              <input id="strength-exercise" type="text" required class="p-2 text-gray-500 focus:outline-none w-full" v-model="item.name">
             </div>
 
             <div class="flex flex-col flex-1">
@@ -110,7 +110,6 @@ import IconBin from '../components/icons/IconBin.vue';
 import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import { supabase } from '../lib/supabaseClient';
 import { ref, computed } from 'vue';
-import { uid } from 'uid';
 import { EXERCISES_TABLE_NAME, WORKOUTS_TABLE_NAME } from '../lib/constants';
 import store from '../store';
 
@@ -128,8 +127,7 @@ const workout = ref(null);
 const addExercise = () => {
   if(type.value === 'strength') {
     exercises.value.push({
-      id: uid(),
-      exercise: '',
+      name: '',
       sets: '',
       reps: '',
       weight: '',
@@ -214,7 +212,7 @@ const createExercises = async () => {
     const exercisesArr = exercises.value.map(exercise => {
       return {
         workout_id: workout.value.id,
-        exercise: exercise.exercise,
+        name: exercise.name,
         sets: exercise.sets,
         reps: exercise.reps,
         weight: exercise.weight,

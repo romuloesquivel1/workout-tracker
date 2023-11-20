@@ -1,4 +1,5 @@
 <template>
+
   <div class="max-w-screen-sm mx-auto px-4 py-10" id="main">
 
     <BaseAlert v-if="errorMsg" messageType="danger" class="mb-10">
@@ -119,9 +120,11 @@
     <ConfirmDeleteModal v-model="showDeleteConfirm" :processing="deleting" modalTitle="Please confirm"
       :onConfirm="deleteWorkout" :confirmMessage="confirmMessage"></ConfirmDeleteModal>
   </div>
+
 </template>
 
 <script setup>
+
 import IconRun from '../components/icons/IconRun.vue';
 import IconBin from '../components/icons/IconBin.vue';
 import IconPen from '../components/icons/IconPen.vue';

@@ -1,4 +1,12 @@
+
+<template>
+  <TheNavigation></TheNavigation>
+  <RouterView />
+  <Footer />
+</template>
+
 <script setup>
+
 import { RouterView } from 'vue-router';
 import TheNavigation from './components/TheNavigation.vue';
 import Footer from './components/Footer.vue';
@@ -17,9 +25,3 @@ supabase.auth.onAuthStateChange((_,session) => {
 window.addEventListener('resize', setMainDivHeight);
 
 </script>
-
-<template>
-  <TheNavigation></TheNavigation>
-  <RouterView />
-  <Footer />
-</template>

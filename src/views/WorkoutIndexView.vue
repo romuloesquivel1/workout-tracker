@@ -1,4 +1,5 @@
 <template>
+
   <div class="container py-10 px-4" id="main">
     <template v-if="loading">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -172,6 +173,7 @@
     </template>
 
   </div>
+
 </template>
 
 <script setup>
