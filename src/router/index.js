@@ -9,7 +9,7 @@ import LandingView from '../views/LandingView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import EditProfileView from '../views/EditProfileView.vue';
-
+import UpdatePasswordView from '../views/UpdatePasswordView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +30,15 @@ const router = createRouter({
       meta: {
         title: "Register",
         auth: false,
+      },
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: UpdatePasswordView,
+      meta: {
+        title: "Change Password",
+        auth: true,
       },
     },
     {
@@ -74,7 +83,7 @@ const router = createRouter({
       component: EditProfileView,
       meta: {
         title: "Edit Profile",
-        auth: true, // assuming that only authenticated users can access this page
+        auth: true,
       },
     },
     {
@@ -83,7 +92,7 @@ const router = createRouter({
       component: ProfileView,
       meta: {
         title: "Profile",
-        auth: true, // assuming that only authenticated users can access this page
+        auth: true,
       },
     },
     // not found route

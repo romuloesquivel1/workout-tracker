@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-md mx-auto px-4 py-10">
+  <div class="max-w-screen-md mx-auto px-4 py-10" id='main'>
     <BaseAlert v-if="errorMsg" messageType="danger" class="mb-10">
       {{ errorMsg }}
     </BaseAlert>
@@ -109,9 +109,10 @@ import BaseButton from '../components/BaseButton.vue';
 import IconBin from '../components/icons/IconBin.vue';
 import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import { supabase } from '../lib/supabaseClient';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { EXERCISES_TABLE_NAME, WORKOUTS_TABLE_NAME } from '../lib/constants';
 import store from '../store';
+import { setMainDivHeight } from '../lib/helpers';
 
 // Create data
 const name = ref('');
@@ -165,92 +166,75 @@ const workoutChange = () => {
 const createWorkout = async () => {
   processing.value = true;
 
-  try {
-    const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert([
-      {
-        name: name.value,
-        type: type.value,
-        user_id: user.value.id,
-      },
-    ]).select();
+  const workoutData = [
+    {
+      name: name.value,
+      type: type.value,
+      user_id: user.value.id,
+    },
+  ];
 
-    if (error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
+  const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert().select(workoutData);
+  processing.value = false;
 
-      processing.value = false;
-      return false;
-    } else {
-      workout.value = data[0];
-    }
-
-    processing.value = false;
-    successMsg.value = 'Success, Workout Created!';
-    name.value = null;
-    type.value = 'select-workout';
-    exercises.value = [];
-    setTimeout(() => {
-      successMsg.value = null;
-    }, 5000);
-
-    return true;
-  }
-  catch(error) {
-    errorMsg.value = error.messageg;
+  if (error) {
+    errorMsg.value = error.message;
     setTimeout(() => {
       errorMsg.value = null;
     }, 5000);
 
     return false;
+  } else {
+    workout.value = data[0];
   }
+
+  successMsg.value = 'Success, Workout Created!';
+  name.value = null;
+  type.value = 'select-workout';
+  exercises.value = [];
+  setTimeout(() => {
+    successMsg.value = null;
+  }, 5000);
+
+  return true;
 }
 
 // Create Exercises
 const createExercises = async () => {
-  try {
-    const exercisesArr = exercises.value.map(exercise => {
-      return {
-        workout_id: workout.value.id,
-        name: exercise.name,
-        sets: exercise.sets,
-        reps: exercise.reps,
-        weight: exercise.weight,
-        cardio_type: exercise.cardio_type,
-        distance: exercise.distance,
-        duration: exercise.duration,
-        pace: exercise.pace,
-      }
-    })
-    const { error } = await supabase.from(EXERCISES_TABLE_NAME).insert(exercisesArr);
-
-    if (error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
-
-      processing.value = false;
-      return;
+  const exercisesArr = exercises.value.map(exercise => {
+    return {
+      workout_id: workout.value.id,
+      name: exercise.name,
+      sets: exercise.sets,
+      reps: exercise.reps,
+      weight: exercise.weight,
+      cardio_type: exercise.cardio_type,
+      distance: exercise.distance,
+      duration: exercise.duration,
+      pace: exercise.pace,
     }
+  });
 
-    processing.value = false;
-    successMsg.value = 'Success, Workout Created!';
-    name.value = null;
-    type.value = 'select-workout';
-    exercises.value = [];
+  const { error } = await supabase.from(EXERCISES_TABLE_NAME).insert(exercisesArr);
+  processing.value = false;
 
-    setTimeout(() => {
-      successMsg.value = null;
-    }, 5000);
-  }
-  catch(error) {
-    errorMsg.value = error.messageg;
+  if (error) {
+    errorMsg.value = error.message;
     setTimeout(() => {
       errorMsg.value = null;
     }, 5000);
+
+    return;
   }
+
+  successMsg.value = 'Success, Workout Created!';
+  name.value = null;
+  type.value = 'select-workout';
+  exercises.value = [];
+
+  setTimeout(() => {
+    successMsg.value = null;
+  }, 5000);
 }
 
 // save the workout then save the exercises
@@ -258,4 +242,8 @@ const createData = async () => {
  if (await createWorkout())
     await createExercises();
 }
+
+onMounted(() => {
+  setMainDivHeight();
+});
 </script>

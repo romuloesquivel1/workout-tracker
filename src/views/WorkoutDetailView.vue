@@ -130,8 +130,6 @@ import IconBin from '../components/icons/IconBin.vue';
 import IconPen from '../components/icons/IconPen.vue';
 import IconDumbbell from '../components/icons/IconDumbbell.vue';
 import IconAddCircle from '../components/icons/IconAddCircle.vue';
-import BaseAlert from '../components/BaseAlert.vue';
-import BaseButton from '../components/BaseButton.vue';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal.vue';
 import { ref, computed, onMounted } from 'vue';
 import { supabase } from '../lib/supabaseClient';

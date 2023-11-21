@@ -4,7 +4,10 @@
     <div class="py-8">
       <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
         <h2 class="text-2xl leading-tight">Your Profile</h2>
-        <router-link to="/edit-profile" class="text-blue-500 hover:text-blue-700">Edit Profile</router-link>
+        <div>
+          <router-link to="/edit-profile" class="text-blue-500 hover:text-blue-700 mr-4">Edit Profile</router-link>
+          <router-link to="/change-password" class="text-blue-500 hover:text-blue-700">Change Password</router-link>
+        </div>
       </div>
       <div class="my-2 bg-white p-5 rounded-lg shadow-sm">
         <div class="flex justify-center">
@@ -41,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-5 border-b">
+        <div class="mt-5">
           <label class="block text-sm font-bold mb-2">Bio:</label>
           <p>{{ user.user_metadata.bio }}</p>
         </div>
@@ -53,8 +56,20 @@
 
 <script setup>
 
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import store from '../store/index';
+import router from '../router/index';
+
 const user = computed(() => { return store.state.currentUser; });
 
+const goToProfile = () => {
+  router.push({ name: 'profile' });
+};
+
+onMounted(() => {
+  if (!user.value) {
+    console.log('No user found, redirecting to login.');
+    goToProfile();
+  }
+});
 </script>
