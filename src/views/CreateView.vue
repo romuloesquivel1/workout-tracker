@@ -98,7 +98,7 @@
             Add Exercise
           </div>
         </div>
-        <BaseButton :loading="loading" type="submit" class="mt-3">Record Workout</BaseButton>
+        <BaseButton :loading="processing" type="submit" class="mt-3">Record Workout</BaseButton>
       </form>
     </div>
   </div>
@@ -119,7 +119,7 @@ const type = ref('select-workout');
 const exercises = ref([]);
 const successMsg = ref(null);
 const errorMsg = ref(null);
-const loading = ref(false);
+const processing = ref(false);
 const user = computed(() => store.state.currentUser);
 const workout = ref(null);
 
@@ -136,7 +136,6 @@ const addExercise = () => {
   }
 
   exercises.value.push({
-    id: uid(),
     cardio_type: '',
     distance: '',
     duration: '',
@@ -164,7 +163,8 @@ const workoutChange = () => {
 
 // Create Workout
 const createWorkout = async () => {
-  loading.value = true;
+  processing.value = true;
+
   try {
     const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert([
       {
@@ -179,13 +179,14 @@ const createWorkout = async () => {
       setTimeout(() => {
         errorMsg.value = null;
       }, 5000);
-      loading.value = false;
+
+      processing.value = false;
       return false;
     } else {
       workout.value = data[0];
     }
 
-    loading.value = false;
+    processing.value = false;
     successMsg.value = 'Success, Workout Created!';
     name.value = null;
     type.value = 'select-workout';
@@ -229,15 +230,17 @@ const createExercises = async () => {
       setTimeout(() => {
         errorMsg.value = null;
       }, 5000);
-      loading.value = false;
+
+      processing.value = false;
       return;
     }
 
-    loading.value = false;
+    processing.value = false;
     successMsg.value = 'Success, Workout Created!';
     name.value = null;
     type.value = 'select-workout';
     exercises.value = [];
+
     setTimeout(() => {
       successMsg.value = null;
     }, 5000);
