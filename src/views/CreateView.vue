@@ -26,7 +26,7 @@
         </div>
 
         <div v-if="type === 'strength'" class="flex flex-col items-start gap-y-4">
-          <div 
+          <div
             class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row pr-8"
             v-for="(item, index) in exercises"
             :key="index"
@@ -61,7 +61,7 @@
         </div>
 
         <div v-if="type === 'cardio'" class="flex flex-col items-start gap-y-4">
-          <div 
+          <div
             class="flex flex-col gap-x-6 gap-y-2 relative md:flex-row pr-8"
             v-for="(item, index) in exercises"
             :key="index"
@@ -174,7 +174,7 @@ const createWorkout = async () => {
     },
   ];
 
-  const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert().select(workoutData);
+  const { data, error } = await supabase.from(WORKOUTS_TABLE_NAME).insert(workoutData).select();
   processing.value = false;
 
   if (error) {
@@ -191,7 +191,7 @@ const createWorkout = async () => {
   successMsg.value = 'Success, Workout Created!';
   name.value = null;
   type.value = 'select-workout';
-  exercises.value = [];
+ 
   setTimeout(() => {
     successMsg.value = null;
   }, 5000);

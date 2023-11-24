@@ -8,6 +8,8 @@ const loading = ref(true);
 
 // Get data
 const getData = async () => {
+  data.value = [];
+
   try {
     const { data: workouts, error } = await supabase.from(WORKOUTS_TABLE_NAME).select();
     if (error) throw error;
