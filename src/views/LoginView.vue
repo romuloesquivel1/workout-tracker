@@ -12,7 +12,7 @@
           <h1 class="text-3xl text-gray-800 mb-4">Login</h1>
           <div class="flex flex-col mb-3">
             <label for="email" class="mb-1 text-sm text-gray-800">Email</label>
-            <input 
+            <input
               type="text"
               required
               class="p-2 text-gray-500 focus:outline-none"
@@ -22,7 +22,7 @@
           </div>
           <div class="flex flex-col mb-6">
             <label for="email" class="mb-1 text-sm text-gray-800">Password</label>
-            <input 
+            <input
               type="password"
               required
               class="p-2 text-gray-500 focus:outline-none"
@@ -32,7 +32,7 @@
           </div>
 
           <BaseButton :loading="processing">Login</BaseButton>
-    
+
           <p class="text-sm text-center text-gray-800 mt-6">
             Don't have an account?
             <router-link class="text-c-green" :to="{ name:'register' }">Register</router-link>
@@ -61,6 +61,7 @@ const password = ref(null);
 const errorMsg = ref(null);
 const successMsg = ref(user.value ? 'You are already logged in!' : null);
 const processing = ref(false);
+const timer_id = ref(null);
 
 // Login function
 const login = async () => {
@@ -83,7 +84,7 @@ const login = async () => {
   }
 
   successMsg.value = 'Login successful!';
-  setTimeout(() => {
+  timer_id.value = setTimeout(() => {
     successMsg.value = null;
     router.push({ name: 'home' });
   }, 10000);
@@ -92,4 +93,10 @@ const login = async () => {
 onMounted(() => {
   setMainDivHeight();
 });
+
+onUnmounted(() => {
+  if (timer_id.value)
+    clearTimeout(timer_id.value);
+});
+
 </script>
