@@ -135,8 +135,9 @@ import { ref, computed, onMounted } from 'vue';
 import { supabase } from '../lib/supabaseClient';
 import { useRoute, useRouter } from 'vue-router';
 import store from '../store/index';
-import { EXERCISES_TABLE_NAME, WORKOUTS_TABLE_NAME } from '../lib/constants';
+import { WORKOUTS_TABLE_NAME } from '../lib/constants';
 import { setMainDivHeight } from '../lib/helpers';
+import { updateExercisesList } from '../lib/exerciseHelpers';
 
 // Create data / vars
 const workout = ref(null);
@@ -154,12 +155,16 @@ const confirmMessage = ref('Are you sure you want to delete this workout?');
 // Get current Id of route
 const currentId = route.params.workoutId;
 
+// backup the current list of exercises
+const backupExercises = ref([]);
+
 // Get workout data
 const getData = async () => {
   try {
     const { data: workouts, error } = await supabase.from(WORKOUTS_TABLE_NAME).select('*, exercises:Exercises(*)').eq('id', currentId);
     if(error) throw error;
     workout.value = workouts[0];
+    backupExercises.value = JSON.parse(JSON.stringify(workouts[0].exercises));
     pageLoading.value = false;
   }
   catch(error) {
@@ -181,11 +186,11 @@ const deleteWorkout = async () => {
       setTimeout(() => {
         errorMsg.value = null;
       }, 5000);
-      
+
       deleting.value = false;
       return;
     }
-    
+
     showDeleteConfirm.value = false;
     deleting.value = false;
     router.push({ name: 'home' });
@@ -290,15 +295,11 @@ const updateExercises = async () => {
         pace: exercise.pace,
       }
     });
-    const { error } = await supabase.from(EXERCISES_TABLE_NAME).upsert(exercises);
-    if(error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
-      submitButtonLoading.value = false;
-      return false;
-    }
+
+    // console.log('backupExercises.value', JSON.stringify(backupExercises.value, null, 2));
+    await updateExercisesList(backupExercises.value, exercises);
+    // after updated successfully, update the backup exercises
+    backupExercises.value = [...exercises];
 
     edit.value = false;
     submitButtonLoading.value = false;
