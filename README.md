@@ -1,14 +1,16 @@
 # Workout Tracker
 
-![screenshot](https://imageupload.io/ib/njrNES3RLokl8pq_1695365201.png)
-
 Workout tracking app using Vue 3 (composition API), Supabase, and Tailwind CSS
 
 ## Live demo
-Check the live demo here 👉  [https://arman-borkhani.github.io/workout-tracker/](https://arman-borkhani.github.io/workout-tracker)
+Check screenshots and video folder
 
-You can login with the following information
+![workouts](screenshots-video/workouts.bmp)
 
-Email: demo@demo.com
-
-Password: demo
+## Features
+  - Login/Logout
+  - Edit and show Profile
+  - Not found page
+  - Responsive layout using TailwindCss
+  - Create/Edit Workout and Exercises using Supabase API
+  - Confirm delete modal
