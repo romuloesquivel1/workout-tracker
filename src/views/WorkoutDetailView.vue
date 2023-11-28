@@ -136,7 +136,7 @@ import { useRoute, useRouter } from 'vue-router';
 import store from '../store/index';
 import { setMainDivHeight } from '../lib/helpers';
 import { workout, pageLoading, getData, isEdit, updateWorkout, updateExercises, deleteWorkout,
-   deleting, errorMsg, successMsg, addExercise, deleteExercise, submitButtonLoading
+   errorMsg, successMsg, addExercise, deleteExercise, submitButtonLoading
 } from './WorkoutDetailView.js';
 const route = useRoute();
 const router = useRouter();
@@ -144,6 +144,8 @@ const user = computed(() => store.state.currentUser);
 const showDeleteConfirm = ref(false);
 
 const confirmMessage = ref('Are you sure you want to delete this workout?');
+
+const deleting = ref(false);
 
 // Get current Id of route
 const currentId = route.params.workoutId;
@@ -164,13 +166,19 @@ const confirmDelete = () => {
 }
 
 const onDeleteWorkout = async () => {
+  deleting.value = true;
+
+  showDeleteConfirm.value = false;
+
   if (await deleteWorkout(currentId))
-    router.push({ name: 'home' });
+    router.push({ name: 'workouts' });
+
+  deleting.value = false;
 }
 
 onMounted(() => {
-  getData(currentId);
   setMainDivHeight();
+  getData(currentId).then(setMainDivHeight);
 });
 
 </script>

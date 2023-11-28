@@ -16,26 +16,32 @@
         <!-- add sorting -->
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold text-gray-800">Workouts</h2>
-          <div class="flex items-center space-x-2">
-            <label for="sortBy" class="text-gray-600">Sort by</label>
-            <select
-              name="sortBy"
-              id="sortBy" v-model="sortBy"
-              class="px-2 py-1 border border-gray-300 rounded-md text-gray-600 text-sm"
-            >
-              <option value="name">Name</option>
-              <option value="type">Type</option>
-              <option value="created_at">Created at</option>
-            </select>
-            <label for="sortDirection" class="text-gray-600">Sort direction</label>
-            <select
-              name="sortDirection"
-              id="sortDirection" v-model="sortDirection"
-              class="px-2 py-1 border border-gray-300 rounded-md text-gray-600 text-sm"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
+          <div class="flex space-x-0 sm:space-x-3 space-y-3 sm:space-y-0 flex-col sm:flex-row sm:items-center items-end">
+            <!-- divide to two columns -->
+            <div class="">
+              <label for="sortBy" class="text-gray-600 mr-2">Sort by:</label>
+              <select
+                name="sortBy"
+                id="sortBy" v-model="sortBy"
+                class="px-2 py-1 border border-gray-300 rounded-md text-gray-600 text-sm"
+              >
+                <option value="name">Name</option>
+                <option value="type">Type</option>
+                <option value="created_at">Created at</option>
+              </select>
+            </div>
+
+            <div class="">
+              <label for="sortDirection" class="text-gray-600 mr-2">Sort direction:</label>
+              <select
+                name="sortDirection"
+                id="sortDirection" v-model="sortDirection"
+                class="px-2 py-1 border border-gray-300 rounded-md text-gray-600 text-sm"
+              >
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </div>
           </div>
         </div>
 

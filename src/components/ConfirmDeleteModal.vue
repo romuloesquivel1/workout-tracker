@@ -15,7 +15,7 @@
           <div class="flex items-center justify-between">
             <h3 class="text-2xl">{{ modalTitle }}</h3>
             <svg
-              @click="processing ? null : closeModal"
+              @click="closeModal"
               xmlns="http://www.w3.org/2000/svg"
               class="w-8 h-8 text-red-900 cursor-pointer"
               fill="none"
@@ -35,10 +35,10 @@
             {{ confirmMessage }}
             </p>
           </div>
-          {{ processing }}
+
           <div class="mt-4 justify-between flex">
             <button :disabled="processing"
-              @click="processing ? null : closeModal"
+              @click="closeModal"
               class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
             >
               Cancel

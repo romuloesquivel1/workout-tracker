@@ -12,7 +12,6 @@ const submitButtonLoading = ref(false);
 const successMsg = ref(null);
 const isEdit = ref(false);
 
-const deleting = ref(false);
 const pageLoading = ref(true);
 // backup the current list of exercises
 const backupExercises = ref([]);
@@ -37,7 +36,6 @@ const getData = async (currentId) => {
 
 // Delete workout
 const deleteWorkout = async (currentId) => {
-  deleting.value = true;
 
   try {
     const { error } = await supabase.from(WORKOUTS_TABLE_NAME).delete().eq('id', currentId);
@@ -47,12 +45,10 @@ const deleteWorkout = async (currentId) => {
         errorMsg.value = null;
       }, 5000);
 
-      deleting.value = false;
       return;
     }
 
     showDeleteConfirm.value = false;
-    deleting.value = false;
 
     return true;
   }
@@ -184,7 +180,6 @@ export {
   submitButtonLoading,
   successMsg,
   isEdit,
-  deleting,
   pageLoading,
   backupExercises,
 
