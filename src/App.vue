@@ -2,14 +2,14 @@
 <template>
   <TheNavigation></TheNavigation>
   <RouterView />
-  <Footer />
+  <FooterElement />
 </template>
 
 <script setup>
 
 import { RouterView } from 'vue-router';
 import TheNavigation from './components/TheNavigation.vue';
-import Footer from './components/Footer.vue';
+import FooterElement from './components/FooterElement.vue';
 import { supabase } from './lib/supabaseClient';
 import store from './store/index';
 import { setMainDivHeight } from './lib/helpers';

@@ -15,7 +15,7 @@
       <div class="flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-2 lg:-mx-2 xl:-mx-2">
         <!-- Column 1 -->
         <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-2 xl:px-2 xl:w-1/2">
-          <div v-for="feature in columns1" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+          <div v-for="feature in columns1" :key="feature.title" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div v-html="feature.icon" class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500"></div>
             <div>
               <p class="mb-2 text-sm font-semibold text-gray-600 dark:text-gray-400">
@@ -30,7 +30,7 @@
 
         <!-- Column 2 -->
         <div class="my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-2 xl:px-2 xl:w-1/2">
-          <div v-for="feature in columns2" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+          <div v-for="feature in columns2" :key="feature.title" class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div v-html="feature.icon" class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500"></div>
             <div>
               <p class="mb-2 text-sm font-semibold text-gray-600 dark:text-gray-400">
