@@ -37,13 +37,13 @@
         </span>
 
         <div class="w-full mt-6">
-          <input v-if="edit" type="text" class="p-2 w-full text-gray-500 focus:outline-none" v-model="workout.name">
+          <input v-if="isEdit" type="text" class="p-2 w-full text-gray-500 focus:outline-none" v-model="workout.name">
           <h1 v-else class="text-center text-2xl text-gray-800 m-0">{{ workout.name }}</h1>
         </div>
       </div>
 
       <div class="mt-10 p-8 flex flex-col items-start bg-c-light-green bg-opacity-10 rounded-md">
-        <div v-if="!workout.exercises.length && !edit">
+        <div v-if="!workout.exercises.length && !isEdit">
           <p class="mb-4">No exercises added yet.</p>
           <BaseButton type="button" @click="editMode">Add Exercise</BaseButton>
         </div>
@@ -52,27 +52,27 @@
           <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row relative pr-8" v-for="(item, index) in workout.exercises" :key="index">
             <div class="flex flex-2 flex-col md:w-1/3">
               <label class="mb-1 text-sm text-gray-800">Exercise</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.name">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.name">
               <p class="text-gray-800" v-else>{{ item.name }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Sets</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.sets">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.sets">
               <p class="text-gray-800" v-else>{{ item.sets }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Reps</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.reps">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.reps">
               <p class="text-gray-800" v-else>{{ item.reps }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Weight (Kg)</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.weight">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.weight">
               <p class="text-gray-800" v-else>{{ item.weight }}</p>
             </div>
-            <IconBin v-if="edit" @click="deleteExercise(item.id)" class="text-c-green absolute right-0 bottom-3 cursor-pointer" width="20" height="20"></IconBin>
+            <IconBin v-if="isEdit" @click="deleteExercise(item.id)" class="text-c-green absolute right-0 bottom-3 cursor-pointer" width="20" height="20"></IconBin>
           </div>
-          <div v-if="edit" @click="addExercise" class="text-c-green font-semibold cursor-pointer flex gap-1 items-center self-start">
+          <div v-if="isEdit" @click="addExercise" class="text-c-green font-semibold cursor-pointer flex gap-1 items-center self-start">
             <IconAddCircle width="20" height="20"></IconAddCircle>
             Add Exercise
           </div>
@@ -82,7 +82,7 @@
           <div class="flex flex-col gap-x-6 gap-y-2 sm:flex-row relative pr-8" v-for="(item, index) in workout.exercises" :key="index">
             <div class="flex flex-2 flex-col md:w-1/3">
               <label class="mb-1 text-sm text-gray-800">Type</label>
-              <select v-if="edit" Class="p-2 w-full bg-white text-gray-500 focus:outline-none" v-model="item.cardio_type">
+              <select v-if="isEdit" Class="p-2 w-full bg-white text-gray-500 focus:outline-none" v-model="item.cardio_type">
                 <option value="#">Select Type</option>
                 <option value="run">Run</option>
                 <option value="walk">Walk</option>
@@ -91,34 +91,34 @@
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Distance (km)</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.distance">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.distance">
               <p class="text-gray-800" v-else>{{ item.distance }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Duration (h)</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.duration">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.duration">
               <p class="text-gray-800" v-else>{{ item.duration }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label class="mb-1 text-sm text-gray-800">Pace (km/h)</label>
-              <input v-if="edit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.pace">
+              <input v-if="isEdit" type="text" Class="p-2 w-full text-gray-500 focus:outline-none" v-model="item.pace">
               <p class="text-gray-800" v-else>{{ item.pace }}</p>
             </div>
-            <IconBin v-if="edit" @click="deleteExercise(item.id)" class="text-c-green absolute right-0 bottom-3 cursor-pointer" width="20" height="20"></IconBin>
+            <IconBin v-if="isEdit" @click="deleteExercise(item.id)" class="text-c-green absolute right-0 bottom-3 cursor-pointer" width="20" height="20"></IconBin>
           </div>
-          <div v-if="edit" @click="addExercise" class="text-c-green font-semibold cursor-pointer flex gap-1 items-center self-start">
+          <div v-if="isEdit" @click="addExercise" class="text-c-green font-semibold cursor-pointer flex gap-1 items-center self-start">
             <IconAddCircle width="20" height="20"></IconAddCircle>
             Add Exercise
           </div>
         </div>
 
-        <BaseButton class="mt-8" type="button" @click="updateData" v-if="edit"
+        <BaseButton class="mt-8" type="button" @click="updateData" v-if="isEdit"
           :loading="submitButtonLoading">Update Workout and Exercises</BaseButton>
       </div>
     </template>
 
     <ConfirmDeleteModal v-model="showDeleteConfirm" :processing="deleting" modalTitle="Please confirm"
-      :onConfirm="deleteWorkout" :confirmMessage="confirmMessage"></ConfirmDeleteModal>
+      :onConfirm="onDeleteWorkout" :confirmMessage="confirmMessage"></ConfirmDeleteModal>
   </div>
 
 </template>
@@ -132,197 +132,30 @@ import IconDumbbell from '../components/icons/IconDumbbell.vue';
 import IconAddCircle from '../components/icons/IconAddCircle.vue';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal.vue';
 import { ref, computed, onMounted } from 'vue';
-import { supabase } from '../lib/supabaseClient';
 import { useRoute, useRouter } from 'vue-router';
 import store from '../store/index';
-import { WORKOUTS_TABLE_NAME } from '../lib/constants';
 import { setMainDivHeight } from '../lib/helpers';
-import { updateExercisesList } from '../lib/exerciseHelpers';
-
-// Create data / vars
-const workout = ref(null);
-const errorMsg = ref(null);
-const successMsg = ref(null);
-const pageLoading = ref(true);
-const submitButtonLoading = ref(false);
+import { workout, pageLoading, getData, isEdit, updateWorkout, updateExercises, deleteWorkout,
+   deleting, errorMsg, successMsg, addExercise, deleteExercise, submitButtonLoading
+} from './WorkoutDetailView.js';
 const route = useRoute();
 const router = useRouter();
 const user = computed(() => store.state.currentUser);
 const showDeleteConfirm = ref(false);
-const deleting = ref(false);
+
 const confirmMessage = ref('Are you sure you want to delete this workout?');
 
 // Get current Id of route
 const currentId = route.params.workoutId;
 
-// backup the current list of exercises
-const backupExercises = ref([]);
-
-// Get workout data
-const getData = async () => {
-  try {
-    const { data: workouts, error } = await supabase.from(WORKOUTS_TABLE_NAME).select('*, exercises:Exercises(*)').eq('id', currentId);
-    if(error) throw error;
-    workout.value = workouts[0];
-    backupExercises.value = JSON.parse(JSON.stringify(workouts[0].exercises));
-    pageLoading.value = false;
-  }
-  catch(error) {
-    errorMsg.value = error.messsage;
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-  }
-}
-
-// Delete workout
-const deleteWorkout = async () => {
-  deleting.value = true;
-
-  try {
-    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).delete().eq('id', currentId);
-    if(error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
-
-      deleting.value = false;
-      return;
-    }
-
-    showDeleteConfirm.value = false;
-    deleting.value = false;
-    router.push({ name: 'home' });
-  }
-  catch(error) {
-    errorMsg.value = error.messsage;
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-  }
-}
-
-// Edit mode
-const edit = ref(null);
-
 const editMode = () => {
-  edit.value = !edit.value;
-}
-
-// Add exercise
-const addExercise = () => {
-  if(workout.value.type === 'strength') {
-    workout.value.exercises.push({
-      name: '',
-      sets: '',
-      reps: '',
-      weight: '',
-    });
-    return;
-  }
-
-  workout.value.exercises.push({
-    name: '',
-    cardio_type: '',
-    distance: '',
-    duration: '',
-    pace: '',
-  });
-}
-
-// Delete exercise
-const deleteExercise = (id) => {
-  if(workout.value.exercises.length > 1) {
-    workout.value.exercises = workout.value.exercises.filter(exercise => exercise.id !== id);
-    return;
-  }
-  errorMsg.value =  'Cannot remove, need to at least have one exercise';
-  setTimeout(() => {
-    errorMsg.value = null;
-  }, 5000);
-}
-
-// Update Workout
-const updateWorkout = async () => {
-  submitButtonLoading.value = true;
-  try {
-    const { error } = await supabase.from(WORKOUTS_TABLE_NAME).update({
-      name: workout.value.name,
-    }).eq('id', currentId);
-    if(error) {
-      errorMsg.value = error.message;
-      setTimeout(() => {
-        errorMsg.value = null;
-      }, 5000);
-      submitButtonLoading.value = false;
-      return false;
-    }
-
-    edit.value = false;
-    submitButtonLoading.value = false;
-    successMsg.value = 'Workout updated!';
-    setTimeout(() => {
-      successMsg.value = null;
-    }, 5000);
-
-    return true;
-  }
-  catch(error) {
-    errorMsg.value = error.messsage;
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-
-    return false;
-  }
-}
-
-// Update Exercises
-const updateExercises = async () => {
-  submitButtonLoading.value = true;
-  try {
-    const exercises = workout.value.exercises.map(exercise => {
-      return {
-        workout_id: currentId,
-        name: exercise.name,
-        sets: exercise.sets,
-        reps: exercise.reps,
-        weight: exercise.weight,
-        cardio_type: exercise.cardio_type,
-        distance: exercise.distance,
-        duration: exercise.duration,
-        pace: exercise.pace,
-      }
-    });
-
-    // console.log('backupExercises.value before', JSON.stringify(backupExercises.value, null, 2));
-    backupExercises.value = await updateExercisesList(backupExercises.value, exercises);
-    workout.value.exercises = [...backupExercises.value];
-
-    edit.value = false;
-    submitButtonLoading.value = false;
-    successMsg.value = 'Workout updated!';
-    setTimeout(() => {
-      successMsg.value = null;
-    }, 5000);
-
-    return true;
-  }
-  catch(error) {
-    errorMsg.value = error.messsage;
-    setTimeout(() => {
-      errorMsg.value = null;
-    }, 5000);
-
-    return false;
-  }
+  isEdit.value = !isEdit.value;
 }
 
 const updateData = async () => {
-  const updated = await updateWorkout();
+  const updated = await updateWorkout(currentId);
   if(updated) {
-    await updateExercises();
+    await updateExercises(currentId);
   }
 }
 
@@ -330,8 +163,13 @@ const confirmDelete = () => {
   showDeleteConfirm.value = true;
 }
 
+const onDeleteWorkout = async () => {
+  if (await deleteWorkout(currentId))
+    router.push({ name: 'home' });
+}
+
 onMounted(() => {
-  getData();
+  getData(currentId);
   setMainDivHeight();
 });
 
