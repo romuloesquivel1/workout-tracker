@@ -48,7 +48,7 @@
 import SessionPresented from "../components/SessionPresented.vue";
 import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "vue-router";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, onUnmounted } from "vue";
 import { setMainDivHeight } from "../lib/helpers";
 import store from "../store";
 

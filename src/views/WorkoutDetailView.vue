@@ -296,10 +296,9 @@ const updateExercises = async () => {
       }
     });
 
-    // console.log('backupExercises.value', JSON.stringify(backupExercises.value, null, 2));
-    await updateExercisesList(backupExercises.value, exercises);
-    // after updated successfully, update the backup exercises
-    backupExercises.value = [...exercises];
+    // console.log('backupExercises.value before', JSON.stringify(backupExercises.value, null, 2));
+    backupExercises.value = await updateExercisesList(backupExercises.value, exercises);
+    workout.value.exercises = [...backupExercises.value];
 
     edit.value = false;
     submitButtonLoading.value = false;

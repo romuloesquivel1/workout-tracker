@@ -37,6 +37,7 @@ export const createExercise = async (exercise) => {
   }
 
   console.log('createExercise', JSON.stringify(exercise, null, 2));
+
   const { data, error } = await supabase
     .from(EXERCISES_TABLE_NAME)
     .insert(exercise);
@@ -53,11 +54,11 @@ export const createExercisesList = async (exercises) => {
     throw new Error('Please provide an exercises list');
   }
 
-  console.log('createExercisesList', JSON.stringify(exercises, null, 2));
+  console.log('createExercisesList: exercises', JSON.stringify(exercises, null, 2));
 
   const { data, error } = await supabase
     .from(EXERCISES_TABLE_NAME)
-    .insert(exercises);
+    .insert(exercises).select();
 
   if (error) {
     throw error;
@@ -75,17 +76,19 @@ export const updateExercise = async (id, exercise) => {
     throw new Error('Please provide an exercise');
   }
 
-  console.log('updateExercise', JSON.stringify(exercise, null, 2));
+  delete exercise.id;
+
+  console.log('updateExercise', id, JSON.stringify(exercise, null, 2));
   const { data, error } = await supabase
     .from(EXERCISES_TABLE_NAME)
     .update(exercise)
-    .eq('id', id);
+    .eq('id', id).select();
 
   if (error) {
     throw error;
   }
 
-  return data;
+  return data[0];
 };
 
 export const updateExercisesList = async (oldExercises, newExercises) => {
@@ -112,23 +115,26 @@ export const updateExercisesList = async (oldExercises, newExercises) => {
 
     // update the existing exercises
     for (let i = 0; i < newExercises.length; i++) {
-      await updateExercise(oldExercises[i].id, newExercises[i]);
+      newExercises[i] = await updateExercise(oldExercises[i].id, newExercises[i]);
     }
   } else {
     // create the extra new exercises
-    const exercisesToCreate = [];
-    for (let i = oldExercises.length; i < newExercises.length; i++) {
-      exercisesToCreate.push(newExercises[i]);
-    }
-    if (exercisesToCreate.length > 0) {
-      await createExercisesList(exercisesToCreate);
-    }
+    let exercisesToCreate = [];
+    const count = newExercises.length - oldExercises.length;
+    if (count > 0)
+      exercisesToCreate = newExercises.splice(0, count);
+
+    if (exercisesToCreate.length > 0)
+      exercisesToCreate = await createExercisesList(exercisesToCreate);
 
     // update the existing exercises
-    for (let i = 0; i < oldExercises.length; i++) {
-      await updateExercise(oldExercises[i].id, newExercises[i]);
-    }
+    for (let i = 0; i < oldExercises.length; i++)
+      newExercises[i] =await updateExercise(oldExercises[i].id, newExercises[i]);
+
+    newExercises = newExercises.concat(exercisesToCreate);
   }
+
+  return newExercises;
 };
 
 export const deleteExercise = async (id) => {
